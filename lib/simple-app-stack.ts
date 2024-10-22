@@ -1,6 +1,7 @@
 import * as cdk from 'aws-cdk-lib';
 import * as lambdanode from 'aws-cdk-lib/aws-lambda-nodejs';
 import * as lambda from 'aws-cdk-lib/aws-lambda';
+import * as dynamodb from "aws-cdk-lib/aws-dynamodb";
 
 import { Construct } from 'constructs';
 
@@ -23,6 +24,13 @@ export class SimpleAppStack extends cdk.Stack {
       },
     });
 
+    const moviesTable = new dynamodb.Table(this, "MoviesTable", {
+      billingMode: dynamodb.BillingMode.PAY_PER_REQUEST,
+      partitionKey: { name: "id", type: dynamodb.AttributeType.NUMBER },
+      removalPolicy: cdk.RemovalPolicy.DESTROY,
+      tableName: "Movies",
+    });
+    
     new cdk.CfnOutput(this, "Simple Function Url", { value: simpleFnURL.url });
   }
 }
