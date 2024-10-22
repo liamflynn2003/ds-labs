@@ -18,7 +18,7 @@ export const handler: Handler = async (event, context) => {
         headers: {
           "content-type": "application/json",
         },
-        body: JSON.stringify({ Message: "No movies found" }),
+        body: JSON.stringify({ Message: "Missing movies" }),
       };
     }
 
